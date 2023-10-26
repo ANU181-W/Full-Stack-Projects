@@ -3,6 +3,7 @@ const app = express();
 import userRouter from "./routes/User_Route.js";
 import adminRouter from "./routes/Admin_Route.js";
 import movieRouter from "./routes/Movies_Router.js";
+import bookingRouter from "./routes/Booking_Route.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/movie", movieRouter);
+app.use("/booking", bookingRouter);
 import { DB_CONNECT } from "./config/database.js";
 DB_CONNECT();
 

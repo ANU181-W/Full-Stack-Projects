@@ -17,7 +17,6 @@ const movieSchema = new mongoose.Schema({
   },
   PosterURL: {
     type: String,
-    required: true,
   },
   featured: {
     type: Boolean,
