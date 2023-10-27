@@ -5,8 +5,10 @@ import adminRouter from "./routes/Admin_Route.js";
 import movieRouter from "./routes/Movies_Router.js";
 import bookingRouter from "./routes/Booking_Route.js";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
+app.use(cors());
 
 const PORT = process.env.port_no;
 app.use(express.json());

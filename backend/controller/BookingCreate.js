@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Booking from "../models/Booking.js";
 import Movies from "../models/Movies.js";
 import User from "../models/User.js";
@@ -25,6 +26,7 @@ export const Add_New_Booking = async (req, res) => {
       seatnumber,
       user,
     });
+    await booking.save();
   } catch (err) {
     return console.log(err);
   }
@@ -33,4 +35,44 @@ export const Add_New_Booking = async (req, res) => {
   }
 
   return res.status(201).json({ booking });
+};
+
+
+
+export const get_booking_by_id = async (req, res) => {
+  const id = req.params.id;
+  let booking;
+
+  try {
+    booking = await Booking.findById(id);
+  } catch (err) {
+    console.log(err);
+  }
+  if (!booking) {
+    return res.status(500).json({ message: "Unable to find booking" });
+  }
+  return res.status(201).json({ booking });
+};
+
+export const delete_booking = async (req, res) => {
+  const id = req.params.id;
+  let booking;
+  try {
+    booking = await Booking.findByIdAndRemove(id).populate("user movie");
+    console.log(booking);
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    existingUser.bookings.push(booking);
+    existingMovie.bookings.push(booking);
+    await existingUser.save({ session });
+    await existingMovie.save({ session });
+    await booking.save({ session });
+    session.commitTransaction();
+  } catch (err) {
+    console.log(err);
+  }
+  if (!booking) {
+    return res.status(500).json({ message: "Unable to Delete" });
+  }
+  return res.status(200).json({ message: "Successfully Deleted" });
 };

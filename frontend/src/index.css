@@ -3,3 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.Tab,
+.inp,
+.css-1h51icj-MuiAutocomplete-root .MuiInput-root .MuiInput-input,
+.css-1h51icj-MuiAutocomplete-root .MuiInput-root .MuiInput-input::placeholder {
+  color: #ffffff;
+}

@@ -18,16 +18,16 @@ export const Add_Movie = async (req, res) => {
 
   const { title, description, releaseDate, posterUrl, featured, actors } =
     req.body;
-  if (
-    !title &&
-    title.trim() === "" &&
-    !description &&
-    description.trim() == "" &&
-    !posterUrl &&
-    posterUrl.trim() === ""
-  ) {
-    return res.status(422).json({ message: "Invalid Inputs" });
-  }
+  // if (
+  //   !title &&
+  //   //title.trim() === "" &&
+  //   !description &&
+  //   //description.trim() == "" &&
+  //   !posterUrl
+  //   // posterUrl.trim() === ""
+  // ) {
+  //   return res.status(422).json({ message: "Invalid Inputs" });
+  // }
 
   let movie;
   try {
