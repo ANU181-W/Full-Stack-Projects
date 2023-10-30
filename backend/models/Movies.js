@@ -15,8 +15,9 @@ const movieSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  PosterURL: {
+  posterUrl: {
     type: String,
+    required: true,
   },
   featured: {
     type: Boolean,

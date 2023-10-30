@@ -10,20 +10,22 @@ import {
 } from "@mui/material";
 import MovieFilterIcon from "@mui/icons-material/MovieFilter";
 import { Box } from "@mui/system";
-import { Link } from "react-router-dom";
-
-const dummyArray = ["robin", "krish", "mr.x"];
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions, adminActions } from "../../Store/Redux";
 function Header() {
-  const [value, setvalue] = useState(0);
+  const [value, setvalue] = useState();
+  const [movies, setMovies] = useState([]);
+  const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isAdminLoggedIn = useSelector((state) => state.admin.isLoggedIn);
+  const dispatch = useDispatch();
 
-  const changeHandler = (e, value) => {
-    setvalue(value);
-  };
   useEffect(() => {
     getallmovies()
-      .then((data) => console.log(data))
+      .then((data) => setMovies(data.movies))
       .catch((err) => console.log(err));
   }, []);
+  console.log(movies);
   useEffect(() => {
     GetUser()
       .then((data) => console.log(data))
@@ -39,7 +41,7 @@ function Header() {
         <Box width={"30%"} margin={"auto"}>
           <Autocomplete
             freeSolo
-            options={dummyArray.map((option) => option)}
+            options={movies.map((option) => option.title)}
             renderInput={(params) => (
               <TextField
                 sx={{
@@ -52,16 +54,48 @@ function Header() {
             )}
           />
         </Box>
-        <Box display={"flex"}>
+        <Box display="flex">
           <Tabs
-            textColor="white"
+            textColor="inherit"
             indicatorColor="secondary"
             value={value}
-            onChange={changeHandler}
+            onChange={(e, val) => setvalue(val)}
           >
-            <Tab LinkComponent={Link} to="/admin" label="Admin" />
-            <Tab LinkComponent={Link} to="/auth" label="Sign UP" />
-            <Tab LinkComponent={Link} to="/movies" label="Movies" />
+            {!isAdminLoggedIn && !isUserLoggedIn && (
+              <>
+                {" "}
+                <Tab to="/auth" LinkComponent={NavLink} label="Login" />
+                <Tab to="/admin" LinkComponent={NavLink} label="Admin" />
+                <Tab to="/movies" LinkComponent={NavLink} label="Movies" />
+              </>
+            )}
+
+            {isUserLoggedIn && (
+              <>
+                {" "}
+                <Tab LinkComponent={Link} to="/user" label="user" />
+                <Tab
+                  onClick={() => dispatch(userActions.logout())}
+                  LinkComponent={Link}
+                  to="/"
+                  label="Logout"
+                />
+              </>
+            )}
+
+            {isAdminLoggedIn && (
+              <>
+                {" "}
+                <Tab LinkComponent={Link} to="/profile" label="Profile" />
+                <Tab LinkComponent={Link} to="/add" label="Add Movie" />
+                <Tab
+                  onClick={() => dispatch(adminActions.logout())}
+                  LinkComponent={Link}
+                  to="/"
+                  label="Logout"
+                />
+              </>
+            )}
           </Tabs>
         </Box>
       </Toolbar>

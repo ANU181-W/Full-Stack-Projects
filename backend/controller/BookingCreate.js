@@ -33,11 +33,9 @@ export const Add_New_Booking = async (req, res) => {
   if (!booking) {
     return res.status(500).json({ message: "Unable to create a booking" });
   }
-
+  console.log("Done");
   return res.status(201).json({ booking });
 };
-
-
 
 export const get_booking_by_id = async (req, res) => {
   const id = req.params.id;

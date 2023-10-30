@@ -64,17 +64,18 @@ export const getallmovies = async (req, res) => {
   res.status(201).json({ movies });
 };
 
-export const get_movie_by_id = async (req, res) => {
-  let id = req.params.id;
-
-  let movies;
+export const getMovieById = async (req, res, next) => {
+  const id = req.params.id;
+  let movie;
   try {
-    movies = await Movies.findById(id);
+    movie = await Movies.findById(id);
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
-  if (!movies) {
-    res.status(500).json({ message: "Movie id Not Found" });
+
+  if (!movie) {
+    return res.status(404).json({ message: "Invalid Movie ID" });
   }
-  res.status(201).json({ movies });
+
+  return res.status(200).json({ movie });
 };
