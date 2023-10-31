@@ -26,7 +26,14 @@ export const Add_New_Booking = async (req, res) => {
       seatnumber,
       user,
     });
-    await booking.save();
+    const session = await mongoose.startSession();
+    session.startTransaction();
+    existingUser.bookings.push(booking);
+    existingMovie.bookings.push(booking);
+    await existingUser.save({ session });
+    await existingMovie.save({ session });
+    await booking.save({ session });
+    session.commitTransaction();
   } catch (err) {
     return console.log(err);
   }

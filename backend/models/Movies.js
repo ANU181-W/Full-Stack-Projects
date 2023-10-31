@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Booking from "./Booking.js";
+import Admin from "./Admin.js";
 
 const movieSchema = new mongoose.Schema({
   title: {
@@ -22,7 +24,7 @@ const movieSchema = new mongoose.Schema({
   featured: {
     type: Boolean,
   },
-  booking: [{ type: mongoose.Types.ObjectId, ref: "Booking" }],
+  bookings: [{ type: mongoose.Types.ObjectId, ref: "Booking" }],
   admin: {
     type: mongoose.Types.ObjectId,
     ref: "Admin",

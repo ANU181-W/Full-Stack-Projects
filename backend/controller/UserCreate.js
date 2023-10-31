@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import Booking from "../models/Booking.js";
 export const GetUser = async (req, res, next) => {
   let users;
   try {
@@ -38,7 +39,6 @@ export const RegisterUser = async (req, res, next) => {
     return res.status(500).json({ message: "internal error occured" });
   }
   return res.status(201).json({ id: user._id });
-  
 };
 
 export const UpdateUser = async (req, res) => {
@@ -125,4 +125,19 @@ export const User_BY_id = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
   return res.status(200).json({ user });
+};
+export const getBookingsOfUser = async (req, res, next) => {
+  const id = req.params.id;
+  let bookings;
+  try {
+    bookings = await Booking.find({ user: id })
+      .populate("movie")
+      .populate("user");
+  } catch (err) {
+    return console.log(err);
+  }
+  if (!bookings) {
+    return res.status(500).json({ message: "Unable to get Bookings" });
+  }
+  return res.status(200).json({ bookings });
 };

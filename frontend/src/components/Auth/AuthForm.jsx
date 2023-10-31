@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const labelStyle = { mt: 1, mb: 1 };
 
 const AuthForm = ({ onSubmit, isAdmin }) => {
@@ -25,9 +25,12 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
       [e.target.name]: e.target.value,
     }));
   };
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ inputs, signup: isAdmin ? false : isSignup });
+    navigate("/");
   };
   return (
     <Dialog PaperProps={{ style: { borderRadius: 20 } }} open={true}>

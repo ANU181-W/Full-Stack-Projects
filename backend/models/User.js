@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: Date.now(),
   },
+  bookings: [{ type: mongoose.Types.ObjectId, ref: "Booking" }],
 });
 
 export default mongoose.model("User", UserSchema);
