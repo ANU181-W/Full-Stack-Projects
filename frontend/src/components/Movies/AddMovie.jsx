@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { addMovie } from "../Data/Data";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const labelProps = {
   mt: 1,
   mb: 1,
@@ -20,6 +22,7 @@ const AddMovie = () => {
     releaseDate: "",
     featured: false,
   });
+  const navigate = useNavigate();
   const [actors, setActors] = useState([]);
   const [actor, setActor] = useState("");
   const handleChange = (e) => {
@@ -34,6 +37,8 @@ const AddMovie = () => {
     addMovie({ ...inputs, actors })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+    toast.success("Movie added successfully...");
+    navigate("/movies");
   };
   return (
     <div>
@@ -42,7 +47,7 @@ const AddMovie = () => {
           width={"50%"}
           padding={10}
           margin="auto"
-          marginTop={10}          
+          marginTop={10}
           display={"flex"}
           flexDirection="column"
           boxShadow={"10px 10px 20px #ccc"}

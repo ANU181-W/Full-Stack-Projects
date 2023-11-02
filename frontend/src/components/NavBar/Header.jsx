@@ -7,7 +7,9 @@ import {
   TextField,
   Tabs,
   Tab,
+  Typography,
 } from "@mui/material";
+
 import MovieFilterIcon from "@mui/icons-material/MovieFilter";
 import { Box } from "@mui/system";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -35,7 +37,10 @@ function Header() {
   return (
     <AppBar position="sticky" sx={{ bgcolor: "#2b2d42" }}>
       <Toolbar className="nav">
-        <Box width={"20%"}>
+        <Box width={"20%"} display={"flex"} gap={2}>
+          <Typography fontSize={20} fontWeight={500}>
+            CineMall
+          </Typography>
           <MovieFilterIcon />
         </Box>
         <Box width={"30%"} margin={"auto"}>

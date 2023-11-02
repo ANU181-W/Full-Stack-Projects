@@ -1,4 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
 const userSclice = createSlice({
   name: "user",
@@ -10,6 +11,7 @@ const userSclice = createSlice({
     logout(state) {
       localStorage.removeItem("userId");
       state.isLoggedIn = false;
+      toast.error("logged out successfully..");
     },
   },
 });
@@ -25,6 +27,7 @@ const adminSlice = createSlice({
       localStorage.removeItem("adminId");
       localStorage.removeItem("token");
       state.isLoggedIn = false;
+      toast.error("logged out successfully..");
     },
   },
 });

@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { React, Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMovieDetails, newBooking } from "../Data/Data";
+import { toast } from "react-hot-toast";
 
 const Booking = () => {
   const [movie, setMovie] = useState();
@@ -31,6 +32,7 @@ const Booking = () => {
         navigate("/");
       })
       .catch((err) => console.log(err));
+    toast.success("movie booked successfully...");
   };
   return (
     <div>

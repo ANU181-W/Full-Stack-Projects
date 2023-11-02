@@ -14,6 +14,7 @@ import {
   Box,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { toast } from "react-hot-toast";
 const UserProfile = () => {
   const [bookings, setBookings] = useState();
   const [user, setUser] = useState();
@@ -33,6 +34,7 @@ const UserProfile = () => {
         location.reload();
       })
       .catch((err) => console.log(err));
+    toast.error("movie deleted successfully");
   };
   return (
     <Box width={"100%"} display="flex">

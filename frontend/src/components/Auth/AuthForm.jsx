@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 const labelStyle = { mt: 1, mb: 1 };
 
 const AuthForm = ({ onSubmit, isAdmin }) => {
@@ -31,6 +32,7 @@ const AuthForm = ({ onSubmit, isAdmin }) => {
     e.preventDefault();
     onSubmit({ inputs, signup: isAdmin ? false : isSignup });
     navigate("/");
+    toast.success("Login Successfull.");
   };
   return (
     <Dialog PaperProps={{ style: { borderRadius: 20 } }} open={true}>
